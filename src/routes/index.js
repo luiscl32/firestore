@@ -10,13 +10,24 @@ admin.initializeApp({
 const db = admin.database()
 
 //routes
-router.get('/',(req, res) => {
-  db.ref('contacts').once('value',(snapshot)=> {
-    const data = snapshot.val()
-    res.render('index', { contacts: data })
-  })
+router.get('/get-contacts',(req, res) => {
+  db.ref('contacts').once('value',
+    (snapshot)=> {
+      res.json({ status: 200,  data: snapshot.key })
+    },
+    (error) => { 
+     res.json({ status: 500 ,error}) 
+    }
+  )
 })
 
+router.get('/get-contact/:id', (req, res) => {
+  db.ref('contacts').once('value', (snapshot) => {
+    const data = snapshot.val()
+    res.render('/get-contact')
+  })
+
+})
 //add
 router.post('/new-contact',(req, res) => {
   const { body } = req
@@ -34,6 +45,14 @@ router.post('/new-contact',(req, res) => {
 //delete
 router.get('/delete-contact/:id', (req, res) => {
   db.ref(`contacts/${req.params.id}`).remove()
+  res.redirect('/')
+})
+
+//edit
+router.post('update-contact:id',(req, res) => {
+  db.ref(`contacts/${req.params.id}`).update({
+    ...req.params
+  })
   res.redirect('/')
 })
 
