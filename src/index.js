@@ -1,5 +1,5 @@
 const app = require('./app')
-const PORT = 3001
+const PORT = app.get('port')
 
 app.listen(PORT)
 console.log(`Listen to port ${PORT}`)
