@@ -2,10 +2,12 @@ const express = require('express')
 const morgan = require('morgan')
 const exphbs = require('express-handlebars')
 const path = require('path') 
+const dotenv = require('dotenv')
 
 
 const app = express()
 const PORT = 3001
+dotenv.config()
 
 //settings
 app.set('port', process.env.PORT || PORT)
