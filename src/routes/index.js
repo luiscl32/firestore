@@ -14,7 +14,9 @@ const db = admin.firestore()
 
 
 //get
-
+router.get('/',(req, res) => {
+  res.render('index')
+})
 
 
 //add
@@ -24,10 +26,10 @@ router.post('/add-contact', (req, res) => {
     Firstname: body.Firstname,
     Lastname: body.Lastname,
     Email: body.Email,
-    Phone: bidy.Phone,
+    Phone: body.Phone,
   }
 
-  db.collection('contacts').add(...newContact)
+  db.collection('contacts').add(newContact)
   .then(() => {
     res.send({ status: 200, message: 'contact added' })
   })
