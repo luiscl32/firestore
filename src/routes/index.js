@@ -14,8 +14,21 @@ const db = admin.firestore()
 
 
 //get
-router.get('/',(req, res) => {
-  res.render('index')
+router.get('/get-contacts',(req, res) => {
+  let allContacts = db.collection('contacts')
+
+  allContacts.get()
+  .then(snapshot => {
+    let response = []
+    snapshot.forEach(e => {
+      response.push({ id: e.id ,...e.data()})
+    })
+    res.send({ status: 200, data: response })
+  })
+  .catch(err => {
+    res.send({ status: 500, error: err })
+  })
+
 })
 
 
@@ -29,7 +42,7 @@ router.post('/add-contact', (req, res) => {
     Phone: body.Phone,
   }
 
-  db.collection('contacts').add(newContact)
+  db.collection('/contacts').add(newContact)
   .then(() => {
     res.send({ status: 200, message: 'contact added' })
   })
