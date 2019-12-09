@@ -25,19 +25,6 @@ app.use(morgan('dev'))
 app.use(express.urlencoded({ extended:false }))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
-// app.use(function(req, res, next){
-//   if(req.headers['content-type'] === "text/plain;charset=UTF-8")
-//   {
-//     req.headers['content-type'] = "text/plain;charset=UTF-8"
-//   }
-
-//   if(req.headers['content-type'] === "application/json"){
-//     req.headers['content-type'] = "application/json"
-//   }
-
-//   return next()
-// })
-
 //routes
 app.use(require('./routes/index'));
 
