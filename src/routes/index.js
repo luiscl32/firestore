@@ -1,21 +1,14 @@
 const { Router } = require('express')
 const router = Router();
-const admin = require('firebase-admin')
+const db = require('../config')
 //contacts
-const { addContact, getContacts } = require('../services/contacts')
-
-
-
-admin.initializeApp({
-  credential: admin.credential.cert(process.env.GOOGLE_APPLICATION_CREDENTIALS)
-})
-
-const db = admin.firestore()
-
+const { addContact, getContacts, deleteContact, updateContact } = require('../services/contacts')
 
 //------------------ CONTACTS --------------//
 router.get('/get-contacts',(req, res) => getContacts(req,res,db))
 router.post('/add-contact', (req, res) => addContact(req,res,db))
+router.post('/delete-contact',(req, res) => deleteContact(req, res, db))
+router.post('/update-contact', (req, res) => updateContact(req, res, db))
 
 
 
