@@ -8,6 +8,7 @@ const dotenv = require('dotenv')
 
 const app = express()
 const PORT = 3001
+dotenv.config()
 
 dotenv.config()
 
